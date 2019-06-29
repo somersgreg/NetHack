@@ -14,20 +14,22 @@ jobs:
 #      install: choco install visualstudio2017-workload-vctools
       language: sh
       script:
-        - find . -name 'fixes36.3' -print
-        - find /c -name 'mspdbcore.dll' -print
         - export
         - export MSVER=14.16.27023
-        - export PATH=$PATH:/c/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2017/Community/VC/Tools/MSVC/$MSVER/bin/HostX64/x86
-        - export PATH=$PATH:/c/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2017/Community/VC/Tools/MSVC/$MSVER/bin/HostX64/x64
-        - export PATH=$PATH:/c/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2017/Community/Common7/IDE/VC/VCPackages
-        - export PATH=$PATH:/c/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2017/Community/Common7/IDE/CommonExtensions/Microsoft/TestWindow
-        - export PATH=$PATH:/c/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2017/Community/MSBuild/Current/bin/Roslyn
+#       - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x86
+        - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Tools/MSVC/$MSVER/bin/HostX64/x86
+        - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Tools/MSVC/$MSVER/bin/HostX64/x64
+        - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/Common7/IDE/VC/VCPackages
+        - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/Common7/IDE/CommonExtensions/Microsoft/TestWindow
+        - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/MSBuild/Current/bin/Roslyn
         - export
         - cd src
         - cp ../sys/winnt/Makefile.msc ./Makefile
         - nmake install
 
+#        - find . -name 'fixes36.3' -print
+#        - find . -name 'fixes36.3' -print
+#        - find /c -name 'mspdbcore.dll' -print
 #        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x86
 #        - /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x64/nmake.exe install
 #        - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x86
