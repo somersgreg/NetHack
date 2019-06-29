@@ -16,7 +16,15 @@ jobs:
       script:
         - cd src
         - cp ../sys/winnt/Makefile.msc ./Makefile
-        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/Community/VC/Tools/MSVC/
+        - ls /c
+        - ls /c/Program\ Files
+        - ls /c/Program\ Files\ \(x86\)
+        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio
+        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017
+        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/Community
+        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/Community/VC
+        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/Community/VC/Tools
+        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/Community/VC/Tools/MSVC
 
 #        - "%(x86)%/Microsoft Visual Studio/2017/Community/VC/Auxiliary/Build/vcvarsamd64_x86.bat"
 #
