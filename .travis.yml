@@ -49,11 +49,6 @@ jobs:
 #        - export LIBPATH=$LIBPATH:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/References/$SDKVER
 #        - export LIBPATH=$LIBPATH:/c/Windows/Microsoft.NET/Framework64/v$FRAMEVER
         - export
-        - ls -l /c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/$SDKVER/um/x86/*
-        - ls -l /c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/$SDKVER/um/x86/*
-        - ls -l /c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/$SDKVER/um/x86/*
-        - ls -l /c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/$SDKVER/um/x86/*
-        - ls -l /c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/$SDKVER/um/x86/*
         - ls /c/Program\ Files\ \(x86\)/Windows\ Kits
         - ls /c/Program\ Files\ \(x86\)/Windows\ Kits/10
         - ls /c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib
