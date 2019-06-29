@@ -10,12 +10,12 @@ jobs:
 #        - cp ../sys/winnt/Makefile.gcc .
 #        - mingw32-make -f Makefile.gcc
     - os: windows
-      install: choco install visualstudio2017buildtools
-#      install: choco install visualstudio2017-workload-vctools
+#      install: choco install visualstudio2017buildtools
+      install: choco install visualstudio2017-workload-vctools
       language: sh
       script:
         - find /c/Program\ Files\ \(x86\) -name 'kernel32.lib' -print
-#       - export
+        - export
         - export VSVER=2017
         - export MSVER=14.16.27023
         - export SDKVER=10.0.17763.0
@@ -47,7 +47,7 @@ jobs:
         - export LIBPATH=$LIBPATH:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/UnionMetadata/$SDKVER
         - export LIBPATH=$LIBPATH:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/References/$SDKVER
         - export LIBPATH=$LIBPATH:/c/Windows/Microsoft.NET/Framework64/v$FRAMEVER
-#       - export
+        - export
         - cd src
         - cp ../sys/winnt/Makefile.msc ./Makefile
         - nmake install
