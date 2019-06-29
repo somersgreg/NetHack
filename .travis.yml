@@ -13,7 +13,7 @@ jobs:
 #      install: choco install microsoft-build-tools
 #      install: choco install visualstudio2017buildtools
 #      install: choco install visualstudio2017-workload-vctools
-       install: choco install windows-sdk-10.1
+#       install: choco install windows-sdk-10.1
       language: sh
       script:
         - find /c -name 'kernel32.lib' -print
