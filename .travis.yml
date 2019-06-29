@@ -16,7 +16,8 @@ jobs:
 #       install: choco install windows-sdk-10.1
       language: sh
       script:
-        - find /c -name 'kernel32.lib' -print
+        - find /c/Program\ Files\ \(x86\) -iname 'kernel32.lib' -print
+        - find /c/Program\ Files\ \(x86\) -iname 'rc.exe' -print
         - export
         - export VSVER=2017
         - export MSVER=14.16.27023
@@ -56,6 +57,7 @@ jobs:
         - ls /c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/$WKITVER
         - ls /c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/$WKITVER/um
         - ls /c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/$WKITVER/um/x86
+        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/bin/HostX64/x64
         - cd src
         - cp ../sys/winnt/Makefile.msc ./Makefile
         - nmake install
