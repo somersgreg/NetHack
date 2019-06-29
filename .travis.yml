@@ -17,6 +17,7 @@ jobs:
         - find . -name 'fixes36.3' -print
         - cd src
         - cp ../sys/winnt/Makefile.msc ./Makefile
+        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x86
         - /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x64/nmake.exe install
 
 #        - ls /c
