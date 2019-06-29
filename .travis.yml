@@ -15,8 +15,8 @@ jobs:
       language: sh
       script:
         - find . -name 'fixes36.3' -print
+        - find /c -name 'mspdbcore.dll' -print
         - export
-        - export PATH=$PATH:"/c/Program Files/Java/jdk1.8.0_191/bin"
         - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x86
         - export
         - cd src
@@ -24,11 +24,12 @@ jobs:
         - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x86
         - /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x64/nmake.exe install
 
+#        - export PATH=$PATH:"/c/Program Files/Java/jdk1.8.0_191/bin"
 #        - ls /c
 #        - ls /c/Program\ Files
 #        - ls /c/Program\ Files\ \(x86\)
 #        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio
-#        - find /c -name 'nmake.exe' -print
+#        - find /c -name 'mspdbcore.dll' -print
 #        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017
 #        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/Community
 #        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/Community/VC
