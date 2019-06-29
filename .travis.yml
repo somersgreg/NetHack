@@ -14,7 +14,7 @@ jobs:
 #      install: choco install visualstudio2017-workload-vctools
       language: sh
       script:
-        - find /c/Program\ Files\ \(x86\) -name 'stdarg.h' -print
+#        - find /c/Program\ Files\ \(x86\) -name 'stdarg.h' -print
         - export
         - export VSVER=2017
         - export MSVER=14.16.27023
@@ -29,7 +29,8 @@ jobs:
         - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/Common7/IDE/VC/VCPackages
         - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/Common7/IDE/CommonExtensions/Microsoft/TestWindow
         - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/MSBuild/Current/bin/Roslyn
-        - export INCLUDE=/c/Program\ Files\ \(x86\)/Windows\ Kits/10/Include/$WKITVER/ucrt
+        - export INCLUDE=/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/$TOOLSVER/VC/Tools/MSVC/$MSVER/include
+        - export INCLUDE=$INCLUDE:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/Include/$WKITVER/ucrt
         - export INCLUDE=$INCLUDE:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/include/$WKITVER/ucrt
         - export INCLUDE=$INCLUDE:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/include/$WKITVER/shared
         - export INCLUDE=$INCLUDE:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/include/$WKITVER/um
