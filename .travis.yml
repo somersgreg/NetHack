@@ -14,20 +14,22 @@ jobs:
 #      install: choco install visualstudio2017-workload-vctools
       language: sh
       script:
+        - find . -name 'fixes36.3' -print
         - cd src
         - cp ../sys/winnt/Makefile.msc ./Makefile
-        - ls /c
-        - ls /c/Program\ Files
-        - ls /c/Program\ Files\ \(x86\)
-        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio
-        - find /c -name 'nmake.exe' -print
-        - find . -name 'fixes36.3' -print
+        - /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x64/nmake.exe install
+
+#        - ls /c
+#        - ls /c/Program\ Files
+#        - ls /c/Program\ Files\ \(x86\)
+#        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio
+#        - find /c -name 'nmake.exe' -print
 #        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017
 #        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/Community
 #        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/Community/VC
 #        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/Community/VC/Tools
 #        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/Community/VC/Tools/MSVC
-
+#
 #        - "%(x86)%/Microsoft Visual Studio/2017/Community/VC/Auxiliary/Build/vcvarsamd64_x86.bat"
 #
 #
