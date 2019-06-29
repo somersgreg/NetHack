@@ -1,23 +1,55 @@
-language: c
-os: windows
-
-jobs:
+matrix:
   include:
-#    - os: windows
-#      install: choco install mingw
-#      script: 
-#        - cd src
-#        - cp ../sys/winnt/Makefile.gcc .
-#        - mingw32-make -f Makefile.gcc
+    - os: linux
+      compiler: gcc
+      script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && QT_SELECT=5 make MOC=moc install"
+      env: HINTS=linux
+    - os: linux
+      env: HINTS=linux
+      compiler: clang
+    - os: linux
+      env: HINTS=linux-x11
+      compiler: gcc
+    - os: linux
+      env: HINTS=linux-qt5
+      compiler: gcc
+      addons:
+        apt:
+          packages:
+            - qtbase5-dev
+            - qtmultimedia5-dev
+            - qtbase5-dev-tools
+    - os: linux
+      env: HINTS=linux-minimal
+      compiler: gcc
+      script: |
+              cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../
+              sed -i '/^#define CLIPPING/d'       include/config.h
+              sed -i '/^#define COMPRESS/d'       include/config.h
+              #sed -i '/^#define DOAGAIN/d'        include/config.h
+              sed -i '/^#define DUMPLOG/d'        include/config.h
+              #sed -i '/^#define GDBPATH/d'        include/config.h
+              #sed -i '/^#define GREPPATH/d'       include/config.h
+              sed -i '/^#define INSURANCE/d'      include/config.h
+              sed -i '/^#define LOGFILE/d'        include/config.h
+              sed -i '/^#define NEWS/d'           include/config.h
+              sed -i '/^#define PANICLOG/d'       include/config.h
+              #sed -i '/^#define STATUS_HILITES/d' include/config.h
+              sed -i '/^#define SYSCF/d'          include/config.h
+              sed -i '/^#define USER_SOUNDS/d'    include/config.h
+              sed -i '/^#define XLOGFILE/d'       include/config.h
+
+              sed -i '/^#define MAIL/d'           include/unixconf.h
+              sed -i '/^#define SHELL/d'          include/unixconf.h
+              sed -i '/^#define SUSPEND/d'        include/unixconf.h
+              sed -i 's/^#define TEXTCOLOR//'     include/unixconf.h
+              make install
+              cat dat/options
     - os: windows
-#      install: choco install microsoft-build-tools
-#      install: choco install visualstudio2017buildtools
-#      install: choco install visualstudio2017-workload-vctools
-#       install: choco install windows-sdk-10.1
       language: sh
       script:
 #        - find /c/Program\ Files\ \(x86\) -iname 'rc.exe' -print
-#        - export
+#       - export
         - export VSVER=2017
         - export MSVER=14.16.27023
         - export SDKVER=10.0.17763.0
@@ -43,99 +75,20 @@ jobs:
         - export LIB=/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/lib/x86:$LIB
         - export LIB=/c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/$WKITVER/ucrt/x86:$LIB
         - export LIB=/c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/$WKITVER/um/x86:$LIB
-#        - export
-        - ls /c/Program\ Files\ \(x86\)
-        - ls /c/Program\ Files\ \(x86\)/Windows\ Kits
-        - ls /c/Program\ Files\ \(x86\)/Windows\ Kits/10
-        - ls /c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib
-        - ls /c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/$WKITVER
-        - ls /c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/$WKITVER/um
-        - ls /c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/$WKITVER/um/x86
-        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/bin/HostX64/x64
+#       - export
         - cd src
         - cp ../sys/winnt/Makefile.msc ./Makefile
         - nmake install
-
-#        - export LIB=/c/Program\ Files\ \(x86\)/Windows\ Kits/NETFXSDK/$NETFXVER/lib/um/x86:$LIB
-#        - export LIBPATH=/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/ATLMFC/lib/x86
-#        - export LIBPATH=$LIBPATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/lib/x86
-#        - export LIBPATH=$LIBPATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/lib/x86/store/references
-#        - export LIBPATH=$LIBPATH:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/UnionMetadata/$WKITVER
-#        - export LIBPATH=$LIBPATH:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/References/$WKITVER
-#        - export LIBPATH=$LIBPATH:/c/Windows/Microsoft.NET/Framework64/v$FRAMEVER
-#        - export PATH=/c/Program\ Files\ \(x86\)/Windows Kits/10/bin/$WKITVER/x86:$PATH
-#        - find /c -name 'stdio.h' -print
-#        - find . -name 'fixes36.3' -print
-#        - find . -name 'fixes36.3' -print
-#        - find /c -name 'mspdbcore.dll' -print
-#        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x86
-#        - /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x64/nmake.exe install
-#        - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x86
-#        - export PATH=$PATH:"/c/Program Files/Java/jdk1.8.0_191/bin"
-#        - ls /c
-#        - ls /c/Program\ Files
-#        - ls /c/Program\ Files\ \(x86\)
-#        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio
-#        - find /c -name 'mspdbcore.dll' -print
-#        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER
-#        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER
-#        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC
-#        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools
-#        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC
 #
-#        - "%(x86)%/Microsoft Visual Studio/$VSVER/$TOOLSVER/VC/Auxiliary/Build/vcvarsamd64_x86.bat"
-#
-#
-#    - env: 
+#    - os: windows
+#      install: choco install mingw
 #      language: sh
-#      before_install:
+#      script: 
+#        - cd src
+#        - cp ../sys/winnt/Makefile.gcc .
+#        - mingw32-make -f Makefile.gcc
 #
-#script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && QT_SELECT=5 make MOC=moc install"
-#
-#matrix:
-#  include:
-#    - env: HINTS=linux
-#      compiler: gcc
-#    - env: HINTS=linux
-#      compiler: clang
-#    - env: HINTS=linux-x11
-#      compiler: gcc
-#    - env: HINTS=linux-qt5
-#      compiler: gcc
-#      addons:
-#        apt:
-#          packages:
-#            - qtbase5-dev
-#            - qtmultimedia5-dev
-#            - qtbase5-dev-tools
-#    - env: HINTS=linux-minimal
-#      compiler: gcc
-#      script: |
-#              cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../
-#              sed -i '/^#define CLIPPING/d'       include/config.h
-#              sed -i '/^#define COMPRESS/d'       include/config.h
-#              #sed -i '/^#define DOAGAIN/d'        include/config.h
-#              sed -i '/^#define DUMPLOG/d'        include/config.h
-#              #sed -i '/^#define GDBPATH/d'        include/config.h
-#              #sed -i '/^#define GREPPATH/d'       include/config.h
-#              sed -i '/^#define INSURANCE/d'      include/config.h
-#              sed -i '/^#define LOGFILE/d'        include/config.h
-#              sed -i '/^#define NEWS/d'           include/config.h
-#              sed -i '/^#define PANICLOG/d'       include/config.h
-#              #sed -i '/^#define STATUS_HILITES/d' include/config.h
-#              sed -i '/^#define SYSCF/d'          include/config.h
-#              sed -i '/^#define USER_SOUNDS/d'    include/config.h
-#              sed -i '/^#define XLOGFILE/d'       include/config.h
-#
-#              sed -i '/^#define MAIL/d'           include/unixconf.h
-#              sed -i '/^#define SHELL/d'          include/unixconf.h
-#              sed -i '/^#define SUSPEND/d'        include/unixconf.h
-#              sed -i 's/^#define TEXTCOLOR//'     include/unixconf.h
-#              make install
-#              cat dat/options
-#
-#sudo: false
-#
+sudo: false
 #notifications:
 #  email:
 #    recipients:
