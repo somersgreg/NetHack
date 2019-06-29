@@ -16,7 +16,9 @@ jobs:
       script:
         - find . -name 'fixes36.3' -print
         - export
-        - export PATH=$PATH;/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x86
+        - export PATH=$PATH:"/c/Program Files/Java/jdk1.8.0_191/bin"
+        - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x86
+        - export
         - cd src
         - cp ../sys/winnt/Makefile.msc ./Makefile
         - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x86
