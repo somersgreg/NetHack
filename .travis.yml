@@ -11,7 +11,7 @@ jobs:
 #        - mingw32-make -f Makefile.gcc
     - os: windows
       install: choco install visualstudio2017buildtools
-      install: choco install visualstudio2017-workload-vctools
+#      install: choco install visualstudio2017-workload-vctools
       language: sh
       script:
         - cd src
