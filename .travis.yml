@@ -16,8 +16,8 @@ jobs:
 #       install: choco install windows-sdk-10.1
       language: sh
       script:
-        - find /c/Program\ Files\ \(x86\) -iname 'kernel32.lib' -print
-        - find /c/Program\ Files\ \(x86\) -iname 'rc.exe' -print
+#        - find /c/Program\ Files\ \(x86\) -iname 'kernel32.lib' -print
+#        - find /c/Program\ Files\ \(x86\) -iname 'rc.exe' -print
         - export
         - export VSVER=2017
         - export MSVER=14.16.27023
@@ -28,6 +28,7 @@ jobs:
 #       - export TOOLSVER=Community
         - export TOOLSVER=BuildTools
         - export PATH=/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/Common7/IDE/VC/VCPackages:$PATH
+        - export PATH=/c/Program\ Files\ \(x86\)/Windows Kits/10/bin/$WKITVER/x64:$PATH
         - export PATH=/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/bin/HostX64/x64:$PATH
         - export PATH=/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/bin/HostX64/x86:$PATH
         - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/Common7/IDE/CommonExtensions/Microsoft/TestWindow
@@ -62,6 +63,7 @@ jobs:
         - cp ../sys/winnt/Makefile.msc ./Makefile
         - nmake install
 
+#        - export PATH=/c/Program\ Files\ \(x86\)/Windows Kits/10/bin/$WKITVER/x86:$PATH
 #        - find /c -name 'stdio.h' -print
 #        - find . -name 'fixes36.3' -print
 #        - find . -name 'fixes36.3' -print
