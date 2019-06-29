@@ -14,7 +14,7 @@ jobs:
       script: 
         - cd src
         - cp ../sys/winnt/Makefile.msc ./Makefile
-        - "%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\%VCToolsVersion%\bin\Hostx64\x64\nmake.exe" install
+        - "%ProgramFiles(x86)%/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/%VCToolsVersion%/bin/Hostx64/x64/nmake.exe" install
 
 #
 #
