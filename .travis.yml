@@ -11,17 +11,19 @@ jobs:
         - mingw32-make -f Makefile.gcc
     - os: windows
       install: choco install visualstudio2017-workload-vctools
-      script: 
+      language: sh
+      script:
         - cd src
         - cp ../sys/winnt/Makefile.msc ./Makefile
-        - "%ProgramFiles(x86)%/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/%VCToolsVersion%/bin/Hostx64/x64/nmake.exe" install
+        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Community/VC/Tools/MSVC/
 
+#        - "%(x86)%/Microsoft Visual Studio/2017/Community/VC/Auxiliary/Build/vcvarsamd64_x86.bat"
 #
 #
 #    - env: 
 #      language: sh
 #      before_install:
-
+#
 #script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && QT_SELECT=5 make MOC=moc install"
 #
 #matrix:
