@@ -20,8 +20,8 @@ jobs:
         - ls /c/Program\ Files
         - ls /c/Program\ Files\ \(x86\)
         - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio
-        - find /c -name 'nmake.exe'
-        - find . -name 'fixes36.3'
+        - find /c -name 'nmake.exe' -print
+        - find . -name 'fixes36.3' -print
 #        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017
 #        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/Community
 #        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/Community/VC
