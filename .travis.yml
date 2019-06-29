@@ -37,7 +37,7 @@ jobs:
         - export INCLUDE=$INCLUDE:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/include/$WKITVER/um
         - export INCLUDE=$INCLUDE:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/include/$WKITVER/winrt
         - export INCLUDE=$INCLUDE:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/include/$WKITVER/cppwinrt
-        - export LIB=/c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/$SDKVER/ucrt/x86;$LIB
+        - export LIB=/c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/$SDKVER/ucrt/x86
         - export LIB=/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/ATLMFC/lib/x86;$LIB
         - export LIB=/c/Program\ Files\ \(x86\)/Windows\ Kits/NETFXSDK/$NETFXVER/lib/um/x86;$LIB
         - export LIB=/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/lib/x86;$LIB
@@ -49,7 +49,7 @@ jobs:
 #        - export LIBPATH=$LIBPATH:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/References/$SDKVER
 #        - export LIBPATH=$LIBPATH:/c/Windows/Microsoft.NET/Framework64/v$FRAMEVER
         - export
-        - ls -l /c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/$SDKVER/um/x86
+        - ls -l /c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/$SDKVER/um/x86/*
         - cd src
         - cp ../sys/winnt/Makefile.msc ./Makefile
         - nmake install
