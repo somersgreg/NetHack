@@ -16,9 +16,8 @@ jobs:
 #       install: choco install windows-sdk-10.1
       language: sh
       script:
-#        - find /c/Program\ Files\ \(x86\) -iname 'kernel32.lib' -print
 #        - find /c/Program\ Files\ \(x86\) -iname 'rc.exe' -print
-        - export
+#        - export
         - export VSVER=2017
         - export MSVER=14.16.27023
         - export SDKVER=10.0.17763.0
@@ -28,7 +27,7 @@ jobs:
 #       - export TOOLSVER=Community
         - export TOOLSVER=BuildTools
         - export PATH=/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/Common7/IDE/VC/VCPackages:$PATH
-        - export PATH=/c/Program\ Files\ \(x86\)/Windows Kits/10/bin/$WKITVER/x64:$PATH
+        - export PATH=/c/Program\ Files\ \(x86\)/Windows\ Kits/10/bin/$WKITVER/x64:$PATH
         - export PATH=/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/bin/HostX64/x64:$PATH
         - export PATH=/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/bin/HostX64/x86:$PATH
         - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/Common7/IDE/CommonExtensions/Microsoft/TestWindow
@@ -44,14 +43,8 @@ jobs:
         - export LIB=/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/lib/x86:$LIB
         - export LIB=/c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/$WKITVER/ucrt/x86:$LIB
         - export LIB=/c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/$WKITVER/um/x86:$LIB
-#        - export LIB=/c/Program\ Files\ \(x86\)/Windows\ Kits/NETFXSDK/$NETFXVER/lib/um/x86:$LIB
-#        - export LIBPATH=/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/ATLMFC/lib/x86
-#        - export LIBPATH=$LIBPATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/lib/x86
-#        - export LIBPATH=$LIBPATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/lib/x86/store/references
-#        - export LIBPATH=$LIBPATH:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/UnionMetadata/$WKITVER
-#        - export LIBPATH=$LIBPATH:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/References/$WKITVER
-#        - export LIBPATH=$LIBPATH:/c/Windows/Microsoft.NET/Framework64/v$FRAMEVER
-        - export
+#        - export
+        - ls /c/Program\ Files\ \(x86\)
         - ls /c/Program\ Files\ \(x86\)/Windows\ Kits
         - ls /c/Program\ Files\ \(x86\)/Windows\ Kits/10
         - ls /c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib
@@ -63,6 +56,13 @@ jobs:
         - cp ../sys/winnt/Makefile.msc ./Makefile
         - nmake install
 
+#        - export LIB=/c/Program\ Files\ \(x86\)/Windows\ Kits/NETFXSDK/$NETFXVER/lib/um/x86:$LIB
+#        - export LIBPATH=/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/ATLMFC/lib/x86
+#        - export LIBPATH=$LIBPATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/lib/x86
+#        - export LIBPATH=$LIBPATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/lib/x86/store/references
+#        - export LIBPATH=$LIBPATH:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/UnionMetadata/$WKITVER
+#        - export LIBPATH=$LIBPATH:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/References/$WKITVER
+#        - export LIBPATH=$LIBPATH:/c/Windows/Microsoft.NET/Framework64/v$FRAMEVER
 #        - export PATH=/c/Program\ Files\ \(x86\)/Windows Kits/10/bin/$WKITVER/x86:$PATH
 #        - find /c -name 'stdio.h' -print
 #        - find . -name 'fixes36.3' -print
