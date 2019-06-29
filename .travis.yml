@@ -3,13 +3,14 @@ os: windows
 
 jobs:
   include:
+#    - os: windows
+#      install: choco install mingw
+#      script: 
+#        - cd src
+#        - cp ../sys/winnt/Makefile.gcc .
+#        - mingw32-make -f Makefile.gcc
     - os: windows
-      install: choco install mingw
-      script: 
-        - cd src
-        - cp ../sys/winnt/Makefile.gcc .
-        - mingw32-make -f Makefile.gcc
-    - os: windows
+      install: choco install visualstudio2017buildtools
       install: choco install visualstudio2017-workload-vctools
       language: sh
       script:
