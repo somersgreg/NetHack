@@ -14,7 +14,7 @@ jobs:
 #      install: choco install visualstudio2017-workload-vctools
       language: sh
       script:
-        - find /c -name 'stdio.h' -print
+        - find /c/Program\ Files\ \(x86\) -name 'stdarg.h' -print
         - export
         - export VSVER=2017
         - export MSVER=14.16.27023
@@ -46,6 +46,7 @@ jobs:
         - cp ../sys/winnt/Makefile.msc ./Makefile
         - nmake install
 
+#        - find /c -name 'stdio.h' -print
 #        - find . -name 'fixes36.3' -print
 #        - find . -name 'fixes36.3' -print
 #        - find /c -name 'mspdbcore.dll' -print
