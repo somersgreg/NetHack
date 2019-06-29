@@ -15,13 +15,33 @@ jobs:
       language: sh
       script:
         - export
+        - export VSVER=2017
         - export MSVER=14.16.27023
-#       - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x86
-        - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Tools/MSVC/$MSVER/bin/HostX64/x86
-        - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Tools/MSVC/$MSVER/bin/HostX64/x64
-        - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/Common7/IDE/VC/VCPackages
-        - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/Common7/IDE/CommonExtensions/Microsoft/TestWindow
-        - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/MSBuild/Current/bin/Roslyn
+        - export SDKVER=10.0.17763.0
+        - export FRAMEVER=4.0.30319
+        - export NETFXVER=4.6.1
+#       - export TOOLSVER=Community
+        - export TOOLSVER=BuildTools
+#       - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/bin/Hostx64/x86
+        - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/bin/HostX64/x86
+        - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/bin/HostX64/x64
+        - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/Common7/IDE/VC/VCPackages
+        - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/Common7/IDE/CommonExtensions/Microsoft/TestWindow
+        - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/MSBuild/Current/bin/Roslyn
+        - export INCLUDE=/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/ATLMFC/include
+        - export INCLUDE=$INCLUDE:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/include
+#       - export INCLUDE=$INCLUDE:/c/Program\ Files\ \(x86\)/Windows\ Kits/NETFXSDK/$NETFXVER/include/um
+        - export INCLUDE=$INCLUDE:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/include/$SDKVER/ucrt
+        - export INCLUDE=$INCLUDE:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/include/$SDKVER/shared
+        - export INCLUDE=$INCLUDE:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/include/$SDKVER/um
+        - export INCLUDE=$INCLUDE:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/include/$SDKVER/winrt
+        - export INCLUDE=$INCLUDE:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/include/$SDKVER/cppwinrt
+        - export LIBPATH=/c/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/ATLMFC/lib/x86
+        - export LIBPATH=$LIBPATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/lib/x86
+        - export LIBPATH=$LIBPATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/$MSVER/lib/x86/store/references
+        - export LIBPATH=$LIBPATH:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/UnionMetadata/$SDKVER
+        - export LIBPATH=$LIBPATH:/c/Program\ Files\ \(x86\)/Windows\ Kits/10/References/$SDKVER
+        - export LIBPATH=$LIBPATH:/c/Windows/Microsoft.NET/Framework64/v$FRAMEVER
         - export
         - cd src
         - cp ../sys/winnt/Makefile.msc ./Makefile
@@ -30,22 +50,22 @@ jobs:
 #        - find . -name 'fixes36.3' -print
 #        - find . -name 'fixes36.3' -print
 #        - find /c -name 'mspdbcore.dll' -print
-#        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x86
-#        - /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x64/nmake.exe install
-#        - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x86
+#        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x86
+#        - /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x64/nmake.exe install
+#        - export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x86
 #        - export PATH=$PATH:"/c/Program Files/Java/jdk1.8.0_191/bin"
 #        - ls /c
 #        - ls /c/Program\ Files
 #        - ls /c/Program\ Files\ \(x86\)
 #        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio
 #        - find /c -name 'mspdbcore.dll' -print
-#        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017
-#        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/Community
-#        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/Community/VC
-#        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/Community/VC/Tools
-#        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/Community/VC/Tools/MSVC
+#        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER
+#        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER
+#        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC
+#        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools
+#        - ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/$VSVER/$TOOLSVER/VC/Tools/MSVC
 #
-#        - "%(x86)%/Microsoft Visual Studio/2017/Community/VC/Auxiliary/Build/vcvarsamd64_x86.bat"
+#        - "%(x86)%/Microsoft Visual Studio/$VSVER/$TOOLSVER/VC/Auxiliary/Build/vcvarsamd64_x86.bat"
 #
 #
 #    - env: 
