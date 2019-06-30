@@ -635,11 +635,11 @@ $(OBJ)/%.o : $(MSWIN)/%.c
 	$(cc) $(CFLAGS)  -o$@  $<
 
 #==========================================
-# Rules for files in win\curses
+# Rules for files in win/curses
 #==========================================
 
 $(OBJ)/%.o : $(WCURSES)/%.c
-	$(cc) $(PDCINCL) $(CFLAGS)  -o$@  $<
+	$(cc) -DPDC_NCMOUSE $(PDCINCL) $(CFLAGS) -o$@  $<
 
 #==========================================
 # Rules for files in PDCurses
