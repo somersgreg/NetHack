@@ -49,7 +49,7 @@ matrix:
               sed -i 's/^#define TEXTCOLOR//'     include/unixconf.h
               make install
               cat dat/options
- include:
+  include:
     - os: windows
       env: HINTS=Windows-visual-studio
       language: shell
@@ -95,12 +95,13 @@ matrix:
         - cd src
         - cp ../sys/winnt/Makefile.gcc ./Makefile
         - mingw32-make install
-  exclude:
-    - os: osx
-      osx_image: xcode10.2
-      env: HINTS=macosx10.14
-      compiler: clang
-      script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && make install"
+#  exclude:
+#    - os: osx
+#      osx_image: xcode10.2
+#      env: HINTS=macosx10.14
+#      compiler: clang
+#      script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && make install"
+#
 #
 sudo: false
 notifications:
