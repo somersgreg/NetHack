@@ -408,8 +408,7 @@ PDCLIBOBJS = $(O)addch.o $(O)addchstr.o $(O)addstr.o $(O)attr.o $(O)beep.o      
 	$(O)initscr.o $(O)inopts.o $(O)insch.o $(O)insstr.o $(O)instr.o $(O)kernel.o   \
 	$(O)keyname.o $(O)mouse.o $(O)move.o $(O)outopts.o $(O)overlay.o $(O)pad.o     \
 	$(O)panel.o $(O)printw.o $(O)refresh.o $(O)scanw.o $(O)scr_dump.o $(O)scroll.o \
-	$(O)slk.o $(O)termattr.o $(O)terminfo.o $(O)touch.o $(O)util.o $(O)window.o    \
-	$(O)debug.o
+	$(O)slk.o $(O)termattr.o $(O)touch.o $(O)util.o $(O)window.o $(O)debug.o
 
 PDCOBJS = $(O)pdcclip.o $(O)pdcdisp.o $(O)pdcgetsc.o $(O)pdckbd.o $(O)pdcscrn.o \
 	  $(O)pdcsetsc.o $(O)pdcutil.o
