@@ -92,6 +92,9 @@ matrix:
 #     install: choco install mingw
       env: HINTS=Windows-mingw
       script:
+        - git clone https://github.com/wmcbrine/PDCurses.git ../pdcurses
+        - export ADD_CURSES=Y
+        - export PDCURSES_TOP=../../pdcurses
         - cd src
         - cp ../sys/winnt/Makefile.gcc ./Makefile
         - mingw32-make install
