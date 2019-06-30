@@ -366,6 +366,7 @@ DATABASE = $(DAT)\data.base
 #==========================================
 
 cc=cl
+cpp=cpp
 link=link
 rc=Rc
 
@@ -583,7 +584,7 @@ DLB =
 	@$(cc) $(cflagsBuild)  -Fo$@  $<
 
 {$(SSYS)}.cpp{$(OBJ)}.o:
-	@$(CC) $(cflagsBuild) /EHsc -Fo$@  $<
+	@$(cc) $(cflagsBuild) /EHsc -Fo$@  $<
 
 #==========================================
 # Rules for files in sys\winnt

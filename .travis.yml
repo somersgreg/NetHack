@@ -83,6 +83,7 @@ matrix:
         - cd src
         - cp ../sys/winnt/Makefile.msc ./Makefile
         - nmake install
+    - os: windows
 #
 #    - os: windows
 #      install: choco install mingw
@@ -98,8 +99,8 @@ sudo: false
 #    recipients:
 #      - devteam@nethack.org
 #
-
-
+#
+#
 #language: c
 #
 #script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && QT_SELECT=5 make MOC=moc install"
