@@ -52,7 +52,7 @@ matrix:
     - os: windows
       env: HINTS=Windows-visual-studio
       script:
-#        - find /c/Program\ Files\ \(x86\) -iname 'rc.exe' -print
+#       - find /c/Program\ Files\ \(x86\) -iname 'rc.exe' -print
 #       - export
         - export VSVER=2017
         - export MSVER=14.16.27023
@@ -84,14 +84,12 @@ matrix:
         - cp ../sys/winnt/Makefile.msc ./Makefile
         - nmake install
     - os: windows
-#
-#    - os: windows
-#      install: choco install mingw
-#      language: sh
-#      script: 
-#        - cd src
-#        - cp ../sys/winnt/Makefile.gcc .
-#        - mingw32-make -f Makefile.gcc
+#     install: choco install mingw
+      env: HINTS=Windows-mingw
+      script:
+        - cd src
+        - cp ../sys/winnt/Makefile.gcc ./Makefile
+        - mingw32-make install
 #
 sudo: false
 #notifications:
