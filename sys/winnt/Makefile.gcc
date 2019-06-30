@@ -336,7 +336,7 @@ ifneq "$(SKIP_NETHACKW)" "Y"
 GUIOBJ  = $(O)mhaskyn.o $(O)mhdlg.o \
 	$(O)mhfont.o $(O)mhinput.o $(O)mhmain.o $(O)mhmap.o \
 	$(O)mhmenu.o $(O)mhmsgwnd.o $(O)mhrip.o $(O)mhsplash.o \
-	$(O)mhstatus.o $(O)mhtext.o $(O)mswproc.o $(O)winhack.o
+	$(O)mhstatus.o $(O)mhtext.o $(O)mswproc.o $(O)NetHackW.o
 
 endif
 
@@ -815,11 +815,11 @@ utility.tag: $(INCL)/date.h $(INCL)/onames.h $(INCL)/pm.h \
 tileutil: $(U)gif2txt.exe $(U)gif2tx32.exe $(U)txt2ppm.exe
 	@echo Optional tile development utilities are up to date.
 
-$(O)winres.o: $(TILEBMP16) $(MSWIN)/winhack.rc $(MSWIN)/mnsel.bmp \
+$(O)winres.o: $(TILEBMP16) $(MSWIN)/NetHackW.rc $(MSWIN)/mnsel.bmp \
 	 $(MSWIN)/mnselcnt.bmp $(MSWIN)/mnunsel.bmp \
 	 $(MSWIN)/petmark.bmp $(MSWIN)/pilemark.bmp $(MSWIN)/NetHack.ico $(MSWIN)/rip.bmp \
 	 $(MSWIN)/splash.bmp
-	$(rc) -o$@ --include-dir $(MSWIN) -i $(MSWIN)/winhack.rc
+	$(rc) -o$@ --include-dir $(MSWIN) -i $(MSWIN)/NetHackW.rc
 
 $(O)conres.o: $(MSWSYS)/console.rc $(MSWSYS)/NetHack.ico 
 	$(rc) -o$@ --include-dir $(MSWSYS) -i $(MSWSYS)/console.rc
