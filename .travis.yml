@@ -82,6 +82,8 @@ matrix:
         - export LIB=/c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/$WKITVER/um/x86:$LIB
 #       - export
         - git clone https://github.com/wmcbrine/PDCurses.git ../pdcurses
+        - export ADD_CURSES=Y
+        - export PDCURSES_TOP=../../pdcurses
         - cd src
         - cp ../sys/winnt/Makefile.msc ./Makefile
         - nmake install
