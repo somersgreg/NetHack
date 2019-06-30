@@ -51,6 +51,7 @@ matrix:
               cat dat/options
     - os: windows
       env: HINTS=Windows-visual-studio
+      language: shell
       script:
 #       - find /c/Program\ Files\ \(x86\) -iname 'rc.exe' -print
 #       - export
