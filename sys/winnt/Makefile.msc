@@ -840,7 +840,6 @@ $(GAMEDIR)\NetHackW.exe : $(O)gamedir.tag $(O)tile.o $(O)ttystub.o \
 		$(O)ttystub.o
 		$(O)NetHackW.res
 <<
-	@if exist $(O)install.tag del $(O)install.tag
 
 $(O)gamedir.tag:
 	@if not exist $(GAMEDIR)\*.* echo creating directory $(GAMEDIR:\=/)

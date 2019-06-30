@@ -142,8 +142,8 @@ SKIP_NETHACKW=Y
 NETHACK_VERSION="3.6.3"
 
 # A brief version for use in macros
-NHV=$(subst .,, $(NETHACK_VERSION))
-NHV=$(subst ",, $(NHV))
+NHV1=$(subst .,, $(NETHACK_VERSION))
+NHV=$(subst ",, $(NHV1))
 
 #
 #  Source directories.    Makedefs hardcodes these, don't change them.
@@ -562,9 +562,9 @@ lflags  = $(LFLAGSBASEC) $(linkdebuf)
 CXXFLAGS = $(CFLAGS)
 
 ifeq  "$(USE_DLB)" "Y"
-DLB = nhdat$(NHV)
+DLBFLG = -DDLB
 else
-DLB =
+DLBFLG =
 endif
 
 #==========================================
@@ -750,7 +750,7 @@ install: initialchk $(GAMEDIR)/NetHack.exe $(U)uudecode.exe $(O)winres.o \
 
 
 install.tag:  $(DAT)/data    $(DAT)/rumors    $(DAT)/dungeon \
-	       $(DAT)/oracles $(DAT)/quest.dat sp_lev.tag $(DLB)
+	       $(DAT)/oracles $(DAT)/quest.dat sp_lev.tag $(O)install.tag
 ifeq  "$(USE_DLB)" "Y"
 	$(subst /,\,copy nhdat$(NHV)          $(GAMEDIR))
 	$(subst /,\,copy $(DAT)/license       $(GAMEDIR))
@@ -845,7 +845,7 @@ $(GAMEDIR)/NetHack.exe : gamedir.tag $(PDCLIB) $(O)tile.o $(O)nttty.o $(O)guistu
 	@echo Linking $@...
 	$(link) $(lflags) -o$@ $(ALLOBJ) $(TTYOBJ) $(O)nttty.o $(O)tile.o \
 		$(O)guistub.o $(O)conres.o $(PDCLIB) $(conlibs) -static -lstdc++
-	$(subst /,\,@if exist install.tag del install.tag)
+	$(subst /,\,@if exist $(O)install.tag del $(O)install.tag)
 
 # NetHackW
 # full tty linkage libs:
