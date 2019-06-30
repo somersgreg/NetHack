@@ -744,12 +744,12 @@ default : install
 all :   install
 
 install: initialchk $(GAMEDIR)/NetHack.exe $(U)uudecode.exe $(O)winres.o \
-	$(NETHACKW_EXE) install.tag $(EXTRA_FILES)
+	$(NETHACKW_EXE) $(O)install.tag $(EXTRA_FILES)
 	@echo NetHack is up to date.
 	@echo Done.
 
 
-install.tag:  $(DAT)/data    $(DAT)/rumors    $(DAT)/dungeon \
+$(O)install.tag:  $(DAT)/data    $(DAT)/rumors    $(DAT)/dungeon \
 	       $(DAT)/oracles $(DAT)/quest.dat sp_lev.tag $(O)install.tag
 ifeq  "$(USE_DLB)" "Y"
 	$(subst /,\,copy nhdat$(NHV)          $(GAMEDIR))
@@ -777,7 +777,7 @@ recover: $(U)recover.exe
 	$(subst /,\,if exist $(U)recover.exe copy $(U)recover.exe  $(GAMEDIR))
 	$(subst /,\,if exist $(DOC)/recover.txt copy $(DOC)/recover.txt $(GAMEDIR)/recover.txt)
 
-sp_lev.tag: utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
+sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
 	 $(DAT)/endgame.des $(DAT)/gehennom.des $(DAT)/knox.des   \
 	 $(DAT)/medusa.des  $(DAT)/oracle.des   $(DAT)/tower.des  \
 	 $(DAT)/yendor.des  $(DAT)/arch.des     $(DAT)/barb.des   \
@@ -813,7 +813,7 @@ sp_lev.tag: utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
 	$(subst /,\,del *.lev)
 	$(subst /,\,echo sp_levs done > sp_lev.tag)
 
-utility.tag: $(INCL)/date.h $(INCL)/onames.h $(INCL)/pm.h \
+$(O)utility.tag: $(INCL)/date.h $(INCL)/onames.h $(INCL)/pm.h \
 	 $(SRC)/vis_tab.c $(U)levcomp.exe $(INCL)/vis_tab.h \
 	 $(U)dgncomp.exe $(TILEUTIL16)
 	$(subst /,\,@echo utilities made >$@)
@@ -861,7 +861,7 @@ $(GAMEDIR)/NetHackW.exe : gamedir.tag $(PDCLIB) $(O)tile.o $(O)ttystub.o \
 	@echo Linking $@...
 	$(link) $(lflags) -mwindows -o$@ $(ALLOBJ) $(GUIOBJ) $(O)tile.o $(O)ttystub.o \
 		$(O)winres.o $(PDCLIB) $(guilibs) -static -lstdc++
-	$(subst /,\,@if exist install.tag del install.tag)
+	$(subst /,\,@if exist $(O)install.tag del $(O)install.tag)
 endif
 
 $(O)nhdefkey.o:
@@ -941,16 +941,16 @@ $(INCL)/vis_tab.h: $(U)makedefs.exe
 $(SRC)/vis_tab.c: $(U)makedefs.exe
 	$(subst /,\,$(U)makedefs -z)
 
-$(DAT)/data: utility.tag    $(DATABASE)
+$(DAT)/data: $(O)utility.tag    $(DATABASE)
 	$(subst /,\,$(U)makedefs -d)
 
-$(DAT)/rumors: utility.tag    $(DAT)/rumors.tru   $(DAT)/rumors.fal
+$(DAT)/rumors: $(O)utility.tag    $(DAT)/rumors.tru   $(DAT)/rumors.fal
 	$(subst /,\,$(U)makedefs -r)
 
-$(DAT)/quest.dat: utility.tag  $(DAT)/quest.txt
+$(DAT)/quest.dat: $(O)utility.tag  $(DAT)/quest.txt
 	$(subst /,\,$(U)makedefs -q)
 
-$(DAT)/oracles: utility.tag    $(DAT)/oracles.txt
+$(DAT)/oracles: $(O)utility.tag    $(DAT)/oracles.txt
 	$(subst /,\,$(U)makedefs -h)
 
 $(DAT)/engrave: $(DAT)/engrave.txt $(U)makedefs.exe
@@ -962,7 +962,7 @@ $(DAT)/epitaph: $(DAT)/epitaph.txt $(U)makedefs.exe
 $(DAT)/bogusmon: $(DAT)/bogusmon.txt $(U)makedefs.exe
 	$(subst /,\,$(U)makedefs -s)
 
-$(DAT)/dungeon: utility.tag  $(DAT)/dungeon.def
+$(DAT)/dungeon: $(O)utility.tag  $(DAT)/dungeon.def
 	$(subst /,\,$(U)makedefs -e)
 	$(subst /,\,$(U)dgncomp $(DAT)/dungeon.pdf)
 
@@ -1349,8 +1349,8 @@ endif
 
 clean:
 	if exist initialchk del initialchk
-	if exist install.tag del install.tag
-	if exist utility.tag del utility.tag
+	if exist $(O)install.tag del $(O)install.tag
+	if exist $(O)utility.tag del $(O)utility.tag
 ifneq "$(W_UTIL)" ""
 	if exist $(W_UTIL)\makedefs.exe    del $(W_UTIL)\makedefs.exe
 	if exist $(W_UTIL)\levcomp.exe     del $(W_UTIL)\levcomp.exe
@@ -1407,8 +1407,8 @@ endif
 	$(subst /,\,if exist $(TILEBMP32) del $(TILEBMP32))
 
 #clean:
-#	-test -f install.tag && del install.tag
-#	-test -f utility.tag && del utility.tag
+#	-test -f $(O)install.tag && del $(O)install.tag
+#	-test -f $(O)utility.tag && del $(O)utility.tag
 #	-test -f $(U)makedefs.exe && del $(U)makedefs.exe
 #	-test -f $(U)levcomp.exe && del $(U)levcomp.exe
 #	-test -f $(U)dgncomp.exe && del $(U)dgncomp.exe
