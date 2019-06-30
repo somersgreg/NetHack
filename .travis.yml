@@ -1,6 +1,7 @@
 language: c
 matrix:
-  include:
+  exclude:
+# include:
     - os: linux
       env: HINTS=linux
       compiler: gcc
@@ -49,6 +50,7 @@ matrix:
               sed -i 's/^#define TEXTCOLOR//'     include/unixconf.h
               make install
               cat dat/options
+# include:
     - os: windows
       env: HINTS=Windows-visual-studio
       language: shell
