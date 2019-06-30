@@ -1,6 +1,6 @@
 language: c
 matrix:
-  exclude:
+  include:
     - os: linux
       env: HINTS=linux
       compiler: gcc
@@ -91,7 +91,7 @@ matrix:
         - cd src
         - cp ../sys/winnt/Makefile.gcc ./Makefile
         - mingw32-make install
-  include:
+  exclude:
     - os: osx
       osx_image: xcode10.2
       env: HINTS=macosx10.14
@@ -99,8 +99,8 @@ matrix:
       script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && make install"
 #
 sudo: false
-#notifications:
-#  email:
-#    recipients:
+notifications:
+  email:
+    recipients:
 #      - devteam@nethack.org
 
