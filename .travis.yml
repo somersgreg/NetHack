@@ -50,7 +50,6 @@ matrix:
               sed -i 's/^#define TEXTCOLOR//'     include/unixconf.h
               make install
               cat dat/options
-# include:
     - os: windows
       env: HINTS=Windows-visual-studio
       language: shell
@@ -86,9 +85,11 @@ matrix:
         - cd src
         - cp ../sys/winnt/Makefile.msc ./Makefile
         - nmake install
+  include:
     - os: windows
 #     install: choco install mingw
       env: HINTS=Windows-mingw
+      language: shell
       script:
         - cd src
         - cp ../sys/winnt/Makefile.gcc ./Makefile
