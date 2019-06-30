@@ -138,6 +138,13 @@ SKIP_NETHACKW=Y
 
 #==============================================================================
 
+#  The version of the game this Makefile was designed for
+NETHACK_VERSION="3.6.3"
+
+# A brief version for use in macros
+NHV=$(subst .,, $(NETHACK_VERSION))
+NHV=$(subst ",, $(NHV))
+
 #
 #  Source directories.    Makedefs hardcodes these, don't change them.
 #
@@ -555,7 +562,7 @@ lflags  = $(LFLAGSBASEC) $(linkdebuf)
 CXXFLAGS = $(CFLAGS)
 
 ifeq  "$(USE_DLB)" "Y"
-DLB = nhdat
+DLB = nhdat$(NHV)
 else
 DLB =
 endif
@@ -745,7 +752,7 @@ install: initialchk $(GAMEDIR)/NetHack.exe $(U)uudecode.exe $(O)winres.o \
 install.tag:  $(DAT)/data    $(DAT)/rumors    $(DAT)/dungeon \
 	       $(DAT)/oracles $(DAT)/quest.dat sp_lev.tag $(DLB)
 ifeq  "$(USE_DLB)" "Y"
-	$(subst /,\,copy nhdat                $(GAMEDIR))
+	$(subst /,\,copy nhdat$(NHV)          $(GAMEDIR))
 	$(subst /,\,copy $(DAT)/license       $(GAMEDIR))
 	$(subst /,\,copy $(DAT)/opthelp       $(GAMEDIR))
 else
@@ -1107,7 +1114,7 @@ $(O)dlb_main.o: $(UTIL)/dlb_main.c $(INCL)/config.h $(INCL)/dlb.h
 $(DAT)/porthelp: $(MSWSYS)/porthelp
 	$(subst /,\,@copy $(MSWSYS)/porthelp $@ >nul)
 
-nhdat:  $(U)dlb_main.exe $(DAT)/data $(DAT)/oracles $(OPTIONS_FILE) \
+nhdat$(NHV):  $(U)dlb_main.exe $(DAT)/data $(DAT)/oracles $(OPTIONS_FILE) \
 	 $(DAT)/quest.dat $(DAT)/rumors $(DAT)/help $(DAT)/hh $(DAT)/cmdhelp $(DAT)/keyhelp \
 	 $(DAT)/history $(DAT)/opthelp $(DAT)/wizhelp $(DAT)/dungeon \
 	 $(DAT)/porthelp $(DAT)/license $(DAT)/engrave $(DAT)/epitaph $(DAT)/bogusmon $(DAT)/tribute sp_lev.tag
@@ -1243,13 +1250,13 @@ ifneq "$(W_GAMEDIR)" ""
 	if exist $(W_GAMEDIR)\nhraykey.dll del $(W_GAMEDIR)\nhraykey.dll
 	if exist $(W_GAMEDIR)\NetHack.exe  del $(W_GAMEDIR)\NetHack.exe
 	if exist $(W_GAMEDIR)\NetHack.pdb  del $(W_GAMEDIR)\NetHack.pdb
-	if exist $(W_GAMEDIR)\nhdat        del $(W_GAMEDIR)\nhdat
+	if exist $(W_GAMEDIR)\nhdat$(NHV)  del $(W_GAMEDIR)\nhdat$(NHV)
 endif
 ifneq "$(W_SRC)" ""
 	if exist $(W_SRC)\vis_tab.c        del $(W_SRC)\vis_tab.c
 	if exist $(W_SRC)\tile.c           del $(W_SRC)\tile.c
 	if exist $(W_SRC)\vis_tab.c        del $(W_SRC)\vis_tab.c
-	if exist nhdat.			   del nhdat.
+	if exist nhdat$(NHV).	           del nhdat$(NHV).
 endif
 ifneq "$(W_DAT)" ""
 	if exist $(W_DAT)\data             del $(W_DAT)\data
