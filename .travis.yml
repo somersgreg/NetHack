@@ -1,20 +1,18 @@
 language: c
-#
-# linux
-#
 matrix:
-  script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && QT_SELECT=5 make MOC=moc install"
   include:
     - os: linux
-      compiler: gcc
-      script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && QT_SELECT=5 make MOC=moc install"
       env: HINTS=linux
+      compiler: gcc
+      script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && make MOC=moc install"
     - os: linux
       env: HINTS=linux
       compiler: clang
+      script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && make MOC=moc install"
     - os: linux
       env: HINTS=linux-x11
       compiler: gcc
+      script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && make MOC=moc install"
     - os: linux
       env: HINTS=linux-qt5
       compiler: gcc
@@ -24,6 +22,7 @@ matrix:
             - qtbase5-dev
             - qtmultimedia5-dev
             - qtbase5-dev-tools
+      script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && QT_SELECT=5 make MOC=moc install"
     - os: linux
       env: HINTS=linux-minimal
       compiler: gcc
@@ -50,12 +49,8 @@ matrix:
               sed -i 's/^#define TEXTCOLOR//'     include/unixconf.h
               make install
               cat dat/options
-#
-# Windows
-#
-matrix:
-  include:
     - os: windows
+      env: HINTS=Windows-visual-studio
       script:
 #        - find /c/Program\ Files\ \(x86\) -iname 'rc.exe' -print
 #       - export
