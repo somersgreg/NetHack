@@ -475,10 +475,17 @@ endif
 #==========================================
 #==========================================
 
+ifndef TRAVIS_COMPILER
 cc     = i686-w64-mingw32-gcc.exe
 cxx    = g++
 rc     = windres
 link   = i686-w64-mingw32-gcc.exe
+#else
+cc     = gcc
+cxx    = g++
+rc     = windres
+link   = gcc
+#endif
 ifeq "$(WANT_WIN_QT4)" "Y"
     link = g++
 endif
