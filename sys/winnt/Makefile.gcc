@@ -751,9 +751,9 @@ install: initialchk $(O)utility.tag $(GAMEDIR)/NetHack.exe $(NETHACKW_EXE) \
 $(O)install.tag:  $(DAT)/data    $(DAT)/rumors    $(DAT)/dungeon \
 	       $(DAT)/oracles $(DAT)/quest.dat $(O)sp_lev.tag $(DLB)
 ifdef TRAVIS_COMPILER
-        ls -l $(SRC)
-        ls -l $(DAT)
-        ls -l $(UTIL)
+	ls -l $(SRC)
+	ls -l $(DAT)
+	ls -l $(UTIL)
 endif
 ifeq  "$(USE_DLB)" "Y"
 	$(subst /,\,copy nhdat$(NHV)          $(GAMEDIR))
