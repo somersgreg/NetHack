@@ -89,7 +89,7 @@ matrix:
     - os: windows
 #     install: choco install mingw
       env: HINTS=Windows-mingw
-      language: shell
+#      language: shell
       script:
         - cd src
         - cp ../sys/winnt/Makefile.gcc ./Makefile
