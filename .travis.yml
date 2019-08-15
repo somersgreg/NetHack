@@ -14,6 +14,7 @@ matrix:
       compiler: gcc
       before-install:
       - sudo apt-get install x11-utils
+      - sudo apt-get install libxaw7-dev
       script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && make install"
     - os: linux
       env: HINTS=linux-qt5
