@@ -1,4 +1,4 @@
-/* NetHack 3.6	pray.c	$NHDT-Date: 1561061321 2019/06/20 20:08:41 $  $NHDT-Branch: NetHack-3.6 $:$NHDT-Revision: 1.115 $ */
+/* NetHack 3.6	pray.c	$NHDT-Date: 1564532667 2019/07/31 00:24:27 $  $NHDT-Branch: NetHack-3.6 $:$NHDT-Revision: 1.117 $ */
 /* Copyright (c) Benson I. Margulies, Mike Stephenson, Steve Linhart, 1989. */
 /* NetHack may be freely redistributed.  See license for details. */
 
@@ -771,6 +771,20 @@ gcrownu()
     HPoison_resistance |= FROMOUTSIDE;
     godvoice(u.ualign.type, (char *) 0);
 
+    class_gift = STRANGE_OBJECT;
+    /* 3.3.[01] had this in the A_NEUTRAL case,
+       preventing chaotic wizards from receiving a spellbook */
+    if (Role_if(PM_WIZARD)
+        && (!uwep || (uwep->oartifact != ART_VORPAL_BLADE
+                      && uwep->oartifact != ART_STORMBRINGER))
+        && !carrying(SPE_FINGER_OF_DEATH)) {
+        class_gift = SPE_FINGER_OF_DEATH;
+    } else if (Role_if(PM_MONK) && (!uwep || !uwep->oartifact)
+               && !carrying(SPE_RESTORE_ABILITY)) {
+        /* monks rarely wield a weapon */
+        class_gift = SPE_RESTORE_ABILITY;
+    }
+
     obj = ok_wep(uwep) ? uwep : 0;
     already_exists = in_hand = FALSE; /* lint suppression */
     switch (u.ualign.type) {
@@ -791,19 +805,13 @@ gcrownu()
         already_exists =
             exist_artifact(RUNESWORD, artiname(ART_STORMBRINGER));
         verbalize("Thou art chosen to %s for My Glory!",
-                  already_exists && !in_hand ? "take lives" : "steal souls");
+                  ((already_exists && !in_hand)
+                   || class_gift != STRANGE_OBJECT) ? "take lives"
+                  : "steal souls");
         break;
     }
 
-    class_gift = STRANGE_OBJECT;
-    /* 3.3.[01] had this in the A_NEUTRAL case below,
-       preventing chaotic wizards from receiving a spellbook */
-    if (Role_if(PM_WIZARD)
-        && (!uwep || (uwep->oartifact != ART_VORPAL_BLADE
-                      && uwep->oartifact != ART_STORMBRINGER))
-        && !carrying(SPE_FINGER_OF_DEATH)) {
-        class_gift = SPE_FINGER_OF_DEATH;
- make_splbk:
+    if (objects[class_gift].oc_class == SPBOOK_CLASS) {
         obj = mksobj(class_gift, TRUE, FALSE);
         bless(obj);
         obj->bknown = 1; /* ok to skip set_bknown() */
@@ -818,11 +826,6 @@ gcrownu()
                     obj = uwep; /* to be blessed,&c */
                 break;
             }
-    } else if (Role_if(PM_MONK) && (!uwep || !uwep->oartifact)
-               && !carrying(SPE_RESTORE_ABILITY)) {
-        /* monks rarely wield a weapon */
-        class_gift = SPE_RESTORE_ABILITY;
-        goto make_splbk;
     }
 
     switch (u.ualign.type) {
@@ -2226,13 +2229,21 @@ register int x, y;
 {
     aligntyp altaralign = a_align(x, y);
 
-    if (!strcmp(align_gname(altaralign), u_gname())) {
+    if (u.ualign.type == altaralign && u.ualign.record > -rn2(4)) {
         godvoice(altaralign, "How darest thou desecrate my altar!");
         (void) adjattrib(A_WIS, -1, FALSE);
+        u.ualign.record--;
     } else {
-        pline("A voice (could it be %s?) whispers:", align_gname(altaralign));
+        pline("%s %s%s:",
+              !Deaf ? "A voice (could it be"
+                    : "Despite your deafness, you seem to hear",
+              align_gname(altaralign),
+              !Deaf ? "?) whispers" : " say");
         verbalize("Thou shalt pay, infidel!");
-        change_luck(-1);
+        /* higher luck is more likely to be reduced; as it approaches -5
+           the chance to lose another point drops down, eventually to 0 */
+        if (Luck > -5 && rn2(Luck + 6))
+            change_luck(rn2(20) ? -1 : -2);
     }
 }
 

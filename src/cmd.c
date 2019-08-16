@@ -1,4 +1,4 @@
-/* NetHack 3.6	cmd.c	$NHDT-Date: 1561017215 2019/06/20 07:53:35 $  $NHDT-Branch: NetHack-3.6 $:$NHDT-Revision: 1.337 $ */
+/* NetHack 3.6	cmd.c	$NHDT-Date: 1565574994 2019/08/12 01:56:34 $  $NHDT-Branch: NetHack-3.6 $:$NHDT-Revision: 1.343 $ */
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /*-Copyright (c) Robert Patrick Rankin, 2013. */
 /* NetHack may be freely redistributed.  See license for details. */
@@ -1002,7 +1002,8 @@ wiz_panic(VOID_ARGS)
         u.uen = u.uenmax = 1000;
         return 0;
     }
-    if (yn("Do you want to call panic() and end your game?") == 'y')
+    if (paranoid_query(ParanoidQuit,
+                       "Do you want to call panic() and end your game?"))
         panic("Crash test.");
     return 0;
 }
@@ -1981,20 +1982,73 @@ int final;
         /* same phrasing for current and final: "entered" is unconditional */
         enlght_line(You_, "entered ", buf, "");
     }
+
+    /* for gameover, these have been obtained in really_done() so that they
+       won't vary if user leaves a disclosure prompt or --More-- unanswered
+       long enough for the dynamic value to change between then and now */
+    if (final ? iflags.at_midnight : midnight()) {
+        enl_msg("It ", "is ", "was ", "the midnight hour", "");
+    } else if (final ? iflags.at_night : night()) {
+        enl_msg("It ", "is ", "was ", "nighttime", "");
+    }
+    /* other environmental factors */
+    if (flags.moonphase == FULL_MOON || flags.moonphase == NEW_MOON) {
+        /* [This had "tonight" but has been changed to "in effect".
+           There is a similar issue to Friday the 13th--it's the value
+           at the start of the current session but that session might
+           have dragged on for an arbitrary amount of time.  We want to
+           report the values that currently affect play--or affected
+           play when game ended--rather than actual outside situation.] */
+        Sprintf(buf, "a %s moon in effect%s",
+                (flags.moonphase == FULL_MOON) ? "full"
+                : (flags.moonphase == NEW_MOON) ? "new"
+                  /* showing these would probably just lead to confusion
+                     since they have no effect on game play... */
+                  : (flags.moonphase < FULL_MOON) ? "first quarter"
+                    : "last quarter",
+                /* we don't have access to 'how' here--aside from survived
+                   vs died--so settle for general platitude */
+                final ? " when your adventure ended" : "");
+        enl_msg("There ", "is ", "was ", buf, "");
+    }
+    if (flags.friday13) {
+        /* let player know that friday13 penalty is/was in effect;
+           we don't say "it is/was Friday the 13th" because that was at
+           the start of the session and it might be past midnight (or
+           days later if the game has been paused without save/restore),
+           so phrase this similar to the start up message */
+        Sprintf(buf, " Bad things %s on Friday the 13th.",
+                !final ? "can happen"
+                : (final == ENL_GAMEOVERALIVE) ? "could have happened"
+                  /* there's no may to tell whether -1 Luck made a
+                     difference but hero has died... */
+                  : "happened");
+        enlght_out(buf);
+    }
+
     if (!Upolyd) {
-        /* flags.showexp does not matter */
+        int ulvl = (int) u.ulevel;
+        /* [flags.showexp currently does not matter; should it?] */
+
         /* experience level is already shown above */
         Sprintf(buf, "%-1ld experience point%s", u.uexp, plur(u.uexp));
-        if (wizard) {
-            if (u.ulevel < 30) {
-                int ulvl = (int) u.ulevel;
-                long nxtlvl = newuexp(ulvl);
-                /* long oldlvl = (ulvl > 1) ? newuexp(ulvl - 1) : 0; */
+        /* TODO?
+         *  Remove wizard-mode restriction since patient players can
+         *  determine the numbers needed without resorting to spoilers
+         *  (even before this started being disclosed for 'final';
+         *  just enable 'showexp' and look at normal status lines
+         *  after drinking gain level potions or eating wraith corpses
+         *  or being level-drained by vampires).
+         */
+        if (ulvl < 30 && (final || wizard)) {
+            long nxtlvl = newuexp(ulvl), delta = nxtlvl - u.uexp;
 
-                Sprintf(eos(buf), ", %ld %s%sneeded to attain level %d",
-                        (nxtlvl - u.uexp), (u.uexp > 0) ? "more " : "",
-                        !final ? "" : "were ", (ulvl + 1));
-            }
+            Sprintf(eos(buf), ", %ld %s%sneeded %s level %d",
+                    delta, (u.uexp > 0) ? "more " : "",
+                    /* present tense=="needed", past tense=="were needed" */
+                    !final ? "" : (delta == 1L) ? "was " : "were ",
+                    /* "for": grammatically iffy but less likely to wrap */
+                    (ulvl < 18) ? "to attain" : "for", (ulvl + 1));
         }
         you_have(buf, "");
     }
@@ -2279,26 +2333,50 @@ int final;
         youhiding(TRUE, final);
 
     /* internal troubles, mostly in the order that prayer ranks them */
-    if (Stoned)
-        you_are("turning to stone", "");
-    if (Slimed)
-        you_are("turning into slime", "");
+    if (Stoned) {
+        if (final && (Stoned & I_SPECIAL))
+            enlght_out(" You turned into stone.");
+        else
+            you_are("turning to stone", "");
+    }
+    if (Slimed) {
+        if (final && (Slimed & I_SPECIAL))
+            enlght_out(" You turned into slime.");
+        else
+            you_are("turning into slime", "");
+    }
     if (Strangled) {
         if (u.uburied) {
             you_are("buried", "");
         } else {
-            Strcpy(buf, "being strangled");
-            if (wizard)
-                Sprintf(eos(buf), " (%ld)", (Strangled & TIMEOUT));
-            you_are(buf, from_what(STRANGLED));
+            if (final && (Strangled & I_SPECIAL)) {
+                enlght_out(" You died from strangulation.");
+            } else {
+                Strcpy(buf, "being strangled");
+                if (wizard)
+                    Sprintf(eos(buf), " (%ld)", (Strangled & TIMEOUT));
+                you_are(buf, from_what(STRANGLED));
+            }
         }
     }
     if (Sick) {
-        /* prayer lumps these together; botl puts Ill before FoodPois */
-        if (u.usick_type & SICK_NONVOMITABLE)
-            you_are("terminally sick from illness", "");
-        if (u.usick_type & SICK_VOMITABLE)
-            you_are("terminally sick from food poisoning", "");
+        /* the two types of sickness are lumped together; hero can be
+           afflicted by both but there is only one timeout; botl status
+           puts TermIll before FoodPois and death due to timeout reports
+           terminal illness if both are in effect, so do the same here */
+        if (final && (Sick & I_SPECIAL)) {
+            Sprintf(buf, " %sdied from %s.", You_, /* has trailing space */
+                    (u.usick_type & SICK_NONVOMITABLE)
+                    ? "terminal illness" : "food poisoning");
+            enlght_out(buf);
+        } else {
+            /* unlike death due to sickness, report the two cases separately
+               because it is possible to cure one without curing the other */
+            if (u.usick_type & SICK_NONVOMITABLE)
+                you_are("terminally sick from illness", "");
+            if (u.usick_type & SICK_VOMITABLE)
+                you_are("terminally sick from food poisoning", "");
+        }
     }
     if (Vomiting)
         you_are("nauseated", "");
@@ -2522,7 +2600,7 @@ int final;
 }
 
 /* attributes: intrinsics and the like, other non-obvious capabilities */
-void
+STATIC_OVL void
 attributes_enlightenment(unused_mode, final)
 int unused_mode UNUSED;
 int final;
@@ -5794,7 +5872,7 @@ end_of_input()
 #ifdef NOSAVEONHANGUP
 #ifdef INSURANCE
     if (flags.ins_chkpt && program_state.something_worth_saving)
-        program_statue.preserve_locks = 1; /* keep files for recovery */
+        program_state.preserve_locks = 1; /* keep files for recovery */
 #endif
     program_state.something_worth_saving = 0; /* don't save */
 #endif
