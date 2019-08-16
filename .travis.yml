@@ -28,7 +28,6 @@ matrix:
             - libx11-dev
             - libxaw7-dev
             - xfonts-utils
-# the three above really shouldn't be needed for qt, but qt Makefile uses them?
             - qtbase5-dev
             - qtmultimedia5-dev
             - qtbase5-dev-tools
