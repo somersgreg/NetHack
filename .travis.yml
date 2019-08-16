@@ -12,10 +12,6 @@ matrix:
     - os: linux
       env: HINTS=linux-x11
       compiler: gcc
-      script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && make install"
-    - os: linux
-      env: HINTS=linux-qt5
-      compiler: gcc
       addons:
       	apt:
       	  packages:
@@ -29,6 +25,10 @@ matrix:
       addons:
         apt:
           packages:
+            - libx11-dev
+            - libxaw7-dev
+            - xfonts-utils
+# the three above really shouldn't be needed for qt, but qt Makefile uses them?
             - qtbase5-dev
             - qtmultimedia5-dev
             - qtbase5-dev-tools
@@ -119,5 +119,3 @@ notifications:
   email:
     recipients:
 #      - devteam@nethack.org
-
-
