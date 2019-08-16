@@ -17,6 +17,7 @@ matrix:
           packages:
             - libx11-dev
             - libxaw7-dev
+            - xfonts-utils
 #      before-install:
 #      - sudo apt-get install libx11-dev
 #      - sudo apt-get install x11-utils
