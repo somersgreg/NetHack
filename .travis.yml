@@ -10,17 +10,6 @@ matrix:
       compiler: clang
       script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && make install"
     - os: linux
-      env: DESCR=linux-bionic-gcc-x11 HINTS=linux-x11
-      dist: bionic
-      compiler: gcc
-      addons:
-        apt:
-          packages:
-            - libx11-dev
-            - libxaw7-dev
-            - xfonts-utils
-      script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && make install"
-    - os: linux
       env: DESCR=linux-xenial-gcc-x11 HINTS=linux-x11
       compiler: gcc
       addons:
@@ -44,7 +33,18 @@ matrix:
             - qtbase5-dev-tools
       script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && QT_SELECT=5 make MOC=moc install"
     - os: linux
-      env: DESCR=linux-xenial-gcc HINTS=linux-minimal
+      env: DESCR=linux-bionic-gcc-x11 HINTS=linux-x11
+      dist: bionic
+      compiler: gcc
+      addons:
+        apt:
+          packages:
+            - libx11-dev
+            - libxaw7-dev
+            - xfonts-utils
+      script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && make install"
+    - os: linux
+      env: DESCR=linux-xenial-gcc-minimal HINTS=linux-minimal
       compiler: gcc
       script: |
               cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../
