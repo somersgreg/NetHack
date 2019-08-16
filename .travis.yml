@@ -10,6 +10,18 @@ matrix:
       compiler: clang
       script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && make install"
     - os: linux
+      env: DESCR=linux bionic x11 gcc
+      env: HINTS=linux-x11
+      dist: bionic
+      compiler: gcc
+      addons:
+        apt:
+          packages:
+            - libx11-dev
+            - libxaw7-dev
+            - xfonts-utils
+      script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && make install"
+    - os: linux
       env: HINTS=linux-x11
       compiler: gcc
       addons:
