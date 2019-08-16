@@ -15,6 +15,7 @@ matrix:
       script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && make install"
     - os: linux
       env: HINTS=linux-qt5
+      compiler: gcc
       addons:
       	apt:
       	  packages:
