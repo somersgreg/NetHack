@@ -2,16 +2,15 @@ language: c
 matrix:
   include:
     - os: linux
-      env: HINTS=linux
+      env: DESCR=linux-xenial-gcc HINTS=linux
       compiler: gcc
       script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && make install"
     - os: linux
-      env: HINTS=linux
+      env: DESCR=linux-xenial-gcc HINTS=linux
       compiler: clang
       script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && make install"
     - os: linux
-      env: DESCR=linux-bionic-gcc-x11
-      env: HINTS=linux-x11
+      env: DESCR=linux-bionic-gcc-x11 HINTS=linux-x11
       dist: bionic
       compiler: gcc
       addons:
@@ -22,7 +21,7 @@ matrix:
             - xfonts-utils
       script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && make install"
     - os: linux
-      env: HINTS=linux-x11
+      env: DESCR=linux-xenial-gcc-x11 HINTS=linux-x11
       compiler: gcc
       addons:
         apt:
@@ -32,7 +31,7 @@ matrix:
             - xfonts-utils
       script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && make install"
     - os: linux
-      env: HINTS=linux-qt5
+      env: DESCR=linux-xenial-gcc-qt5 HINTS=linux-qt5
       compiler: gcc
       addons:
         apt:
@@ -45,7 +44,7 @@ matrix:
             - qtbase5-dev-tools
       script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && QT_SELECT=5 make MOC=moc install"
     - os: linux
-      env: HINTS=linux-minimal
+      env: DESCR=linux-xenial-gcc HINTS=linux-minimal
       compiler: gcc
       script: |
               cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../
@@ -71,7 +70,7 @@ matrix:
               make install
               cat dat/options
     - os: windows
-      env: HINTS=windows-visual-studio
+      env: DESCR=windows-visualstudio
       language: shell
       script:
 #       - find /c/Program\ Files\ \(x86\) -iname 'rc.exe' -print
@@ -110,7 +109,7 @@ matrix:
         - nmake install
     - os: windows
 #     install: choco install mingw
-      env: HINTS=windows-mingw
+      env: DESCR=windows-mingw
       script:
         - git clone --depth 1 https://github.com/wmcbrine/PDCurses.git ../pdcurses
         - export ADD_CURSES=Y
