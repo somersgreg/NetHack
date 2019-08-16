@@ -13,8 +13,8 @@ matrix:
       env: HINTS=linux-x11
       compiler: gcc
       addons:
-      	apt:
-      	  packages:
+        apt:
+          packages:
             - libx11-dev
             - libxaw7-dev
             - xfonts-utils
@@ -25,9 +25,6 @@ matrix:
       addons:
         apt:
           packages:
-            - libx11-dev
-            - libxaw7-dev
-            - xfonts-utils
             - qtbase5-dev
             - qtmultimedia5-dev
             - qtbase5-dev-tools
