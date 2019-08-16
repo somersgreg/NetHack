@@ -12,10 +12,15 @@ matrix:
     - os: linux
       env: HINTS=linux-x11
       compiler: gcc
-      before-install:
-      - sudo apt-get install libx11-dev
+      addons:
+        apt:
+          packages:
+            - libx11-dev
+            - libxaw7-dev
+#      before-install:
+#      - sudo apt-get install libx11-dev
 #      - sudo apt-get install x11-utils
-      - sudo apt-get install libxaw7-dev
+#      - sudo apt-get install libxaw7-dev
       script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && make install"
     - os: linux
       env: HINTS=linux-qt5
