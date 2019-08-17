@@ -16,7 +16,8 @@ matrix:
 #        - hdiutil attach XQuartz-${XQUARTZ_VERSION}.dmg
 #        - sudo installer -pkg /Volumes/XQuartz-${XQUARTZ_VERSION}/XQuartz.pkg -target /
 #        - hdiutil detach /Volumes/XQuartz-${XQUARTZ_VERSION}
-      script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && make install"
+#      script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && make install"
+       script: "cd sys/unix/ && xcodebuild -project NetHack.xcodeproj && cd ../../
   exclude:
     - os: linux
       env: DESCR=linux-xenial-gcc HINTS=linux
