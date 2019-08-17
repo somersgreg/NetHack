@@ -22,7 +22,7 @@ matrix:
 #        - hdiutil detach /Volumes/XQuartz-${XQUARTZ_VERSION}
 #      script: "cd sys/unix/ && sh setup.sh hints/$HINTS && cd ../../ && make install"
 #       script: "cd sys/unix/ && xcodebuild -project NetHack.xcodeproj && cd ../../"
-       script: xcodebuild
+       script: "xcodebuild"
   exclude:
     - os: linux
       env: DESCR=linux-xenial-gcc HINTS=linux
