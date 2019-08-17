@@ -4,8 +4,9 @@ matrix:
     - os: osx
       osx_image: xcode10.3
       env: DESCR=osx-xcode10.3-x11 HINTS=macosx10.14 WANT_WIN_CURSES=1 WANT_WIN_X11=1 USE_XPM=1
+      compiler: clang
       xcode_project: sys/unix/NetHack.xcodeproj # path to your xcodeproj folder
-      xcode_scheme: NetHack
+#      xcode_scheme: NetHack
       xcode_destination: platform=macOS
 #      compiler: clang
 #      before_install:
